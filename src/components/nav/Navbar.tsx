@@ -16,38 +16,12 @@ import {
 import InstancesDropdown from '../../utils/user/InstancesDropdown';
 
 const Navbar: React.FC = () => {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const [isPhoneNavOpen, setIsPhoneNavOpen] = useState<boolean>(false);
-  const [animationClass, setAnimationClass] = useState<string>('');
   const [selectedInstance, setSelectedInstance] = useState<string>('all_instances');
 
-  const animationInProgress = useRef<boolean>(false);
-
-  useEffect(() => {
-    // Reset animation class when location changes
-    setAnimationClass('');
-  }, []);
-
   const togglePhoneNav = () => {
-    // if (animationInProgress.current) {
-    //   return;
-    // }
     setIsPhoneNavOpen(!isPhoneNavOpen);
-    // animationInProgress.current = true;
-
-    // if (isPhoneNavOpen) {
-    //   setAnimationClass('animate_close_nav');
-    //   setTimeout(() => {
-    //     setIsPhoneNavOpen(false);
-    //     animationInProgress.current = false;
-    //   }, 1200); // Duration of the closeNav animation
-    // } else {
-    //   setAnimationClass('animate_open_nav');
-    //   setIsPhoneNavOpen(true);
-    //   setTimeout(() => {
-    //     animationInProgress.current = false;
-    //   }, 1200); // Duration of the openNav animation
-    // }
   };
 
   return (
@@ -81,7 +55,10 @@ const Navbar: React.FC = () => {
 
         {/* Drop down of instances */}
         <section className='grid justify-center'>
-            <InstancesDropdown selectedInstance={selectedInstance} />
+          <InstancesDropdown
+            selectedInstance={selectedInstance}
+            setSelectedInstance={setSelectedInstance}
+          />
         </section>
 
         <section className='grid justify-end'>

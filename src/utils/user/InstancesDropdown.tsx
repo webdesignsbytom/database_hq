@@ -5,16 +5,23 @@ import { databasesArray } from '../../models/instances/InstanceModels';
 
 // Define props type for InstancesDropdown
 interface InstancesDropdownProps {
-  selectedInstance: String;
+  selectedInstance: string;
+  setSelectedInstance: (instanceName: string) => void;
 }
 
 const InstancesDropdown: React.FC<InstancesDropdownProps> = ({
   selectedInstance,
+  setSelectedInstance,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen); // Toggle the dropdown
+  };
+
+  const handleInstanceSelect = (instanceName: string) => {
+    setSelectedInstance(instanceName); // Update the selected instance in the Navbar state
+    setIsOpen(false); // Close the dropdown
   };
 
   return (
@@ -36,15 +43,15 @@ const InstancesDropdown: React.FC<InstancesDropdownProps> = ({
         <div className='absolute left-0 top-full mt-1 w-full'>
           <div className='grid bg-white border border-gray-200 rounded-md shadow-lg overflow-hidden cursor-pointer'>
             <ul>
-              {databasesArray.map((database, index) => {
-                return (
-                  <li className='px-4 py-2 hover:bg-gray-100'>
-                    <div>
-                      <span>{database.name}</span>
-                    </div>
-                  </li>
-                );
-              })}
+              {databasesArray.map((database) => (
+                <li
+                  key={database.id}
+                  className='px-4 py-2 hover:bg-gray-100'
+                  onClick={() => handleInstanceSelect(database.name)}
+                >
+                  {database.name}
+                </li>
+              ))}
             </ul>
           </div>
         </div>

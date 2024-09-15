@@ -7,6 +7,7 @@ import './styles/components.css';
 import './styles/animations.css';
 // Context
 import { UserProvider } from './context/UserContext';
+import { InstanceProvider } from './context/InstanceContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <UserProvider>
-      <App />
+      <InstanceProvider>
+        <App />
+      </InstanceProvider>
     </UserProvider>
   </BrowserRouter>
 );

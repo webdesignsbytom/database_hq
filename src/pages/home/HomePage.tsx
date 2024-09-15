@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // Analytics
 import { usePageTracking } from '../../hooks/useAnalytics';
 // Components
@@ -11,10 +12,6 @@ import { databasesArray } from '../../models/instances/InstanceModels';
 
 const HomePage: React.FC = () => {
   usePageTracking();
-
-  const openDatabaseInstance = () => {
-    console.log('open');
-  }
 
   return (
     <>
@@ -57,13 +54,15 @@ const HomePage: React.FC = () => {
                         </thead>
                         <tbody>
                           {databasesArray.map((instance) => (
-                            <tr key={instance.id} onClick={openDatabaseInstance} className='bg-white border-b cursor-pointer hover:bg-slate-300'>
-                              <td className='py-2 pl-1'>{instance.name}</td>
+                            <tr key={instance.id} className='bg-white border-b hover:bg-slate-300'>
+                              <td className='py-2 pl-1'>
+                                <Link to={`/instance/${instance.id}`} className='text-blue-500 hover:underline'>
+                                  {instance.name}
+                                </Link>
+                              </td>
                               <td className='py-2'>{instance.host}</td>
                               <td className='py-2'>{instance.plan}</td>
-                              <td className='py-2'>
-                                {instance.datacenter}
-                              </td>
+                              <td className='py-2'>{instance.datacenter}</td>
                               <td className='py-2'>{instance.actions}</td>
                             </tr>
                           ))}
