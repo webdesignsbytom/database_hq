@@ -62,30 +62,32 @@ const InstanceOverviewPage: React.FC = () => {
           <Navbar />
 
           {/* Main page content */}
-          <main role='main'>
-            <div className='grid h-full bg-blue-300 grid-cols-reg'>
-              <nav className='grid bg-slate-400 w-full h-full'>
+          <main role='main' className='grid overflow-hidden w-full h-full'>
+            <div className='grid h-full bg-blue-300 grid-cols-reg overflow-hidden'>
+              <nav className='grid bg-slate-400 w-full h-full overflow-hidden'>
                 <SideNavbar handleComponentChange={handleComponentChange} />
               </nav>
 
-              {/* Toggle between InstanceData and InstanceBrowser */}
-              {activeComponent === 'overview' && (
-                <InstanceOverview
-                  name={instance.name}
-                  host={instance.host}
-                  plan={instance.plan}
-                  datacenter={instance.datacenter}
-                  user={instance.user}
-                  password={instance.password}
-                  url={instance.url}
-                  createdAt={instance.createdAt}
-                  databaseSize={instance.databaseSize}
-                />
-              )}
+              <section className='grid h-full w-full overflow-y-auto bg-green-300'>
+                {/* Toggle between InstanceData and InstanceBrowser */}
+                {activeComponent === 'overview' && (
+                  <InstanceOverview
+                    name={instance.name}
+                    host={instance.host}
+                    plan={instance.plan}
+                    datacenter={instance.datacenter}
+                    user={instance.user}
+                    password={instance.password}
+                    url={instance.url}
+                    createdAt={instance.createdAt}
+                    databaseSize={instance.databaseSize}
+                  />
+                )}
 
-              {activeComponent === 'browser' && (
-                <InstanceBrowser tables={instance.tables} />
-              )}
+                {activeComponent === 'browser' && (
+                  <InstanceBrowser tables={instance.tables} />
+                )}
+              </section>
             </div>
           </main>
         </div>
