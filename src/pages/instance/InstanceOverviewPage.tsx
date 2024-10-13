@@ -2,19 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // Analytics
 import { usePageTracking } from '../../hooks/useAnalytics';
+// Constants
+import { CompanyName } from '../../utils/Constants';
+// Components
 import Navbar from '../../components/nav/Navbar';
 import { HelmetItem } from '../../components/utils/HelmetItem';
-import { CompanyName } from '../../utils/Constants';
+import SideNavbar from '../../components/nav/SideNavbar';
+// Models
 import { databasesArray } from '../../models/instances/InstanceModels';
+import InstanceOverview from '../../components/instances/InstanceOverview';
+import InstanceBrowser from '../../components/instances/InstanceBrowser';
 
 const InstanceOverviewPage: React.FC = () => {
   usePageTracking();
+
   const { id } = useParams<{ id: string }>(); // Get the instance ID from the URL
 
   const [instance, setInstance] = useState<null | (typeof databasesArray)[0]>(
     null
   ); // State to hold the instance data
   const [loading, setLoading] = useState(true); // State to handle loading state
+  const [activeComponent, setActiveComponent] = useState<string>('overview');
 
   useEffect(() => {
     // Simulate fetching instance data from databasesArray or an API
@@ -36,6 +44,11 @@ const InstanceOverviewPage: React.FC = () => {
     return <div>Instance not found</div>; // Show an error if no instance is found
   }
 
+  const handleComponentChange = (component: string) => {
+    console.log(`Switching to component: ${component}`);
+    setActiveComponent(component);
+  };
+
   return (
     <>
       {/* Tab Data */}
@@ -51,30 +64,28 @@ const InstanceOverviewPage: React.FC = () => {
           {/* Main page content */}
           <main role='main'>
             <div className='grid h-full bg-blue-300 grid-cols-reg'>
-              <nav className='grid bg-red-300 w-full h-full'>
-                <div className='p-1 w-full h-full'>
-                  <ul>
-                    <li className='px-1 hover:bg-slate-300 cursor-pointer'>Details</li>
-                    <li className='px-1 hover:bg-slate-300 cursor-pointer'>Browser</li>
-                    <li className='px-1 hover:bg-slate-300 cursor-pointer'>Backup</li>
-                    <li className='px-1 hover:bg-slate-300 cursor-pointer'>Log</li>
-                  </ul>
-                </div>
+              <nav className='grid bg-slate-400 w-full h-full'>
+                <SideNavbar handleComponentChange={handleComponentChange} />
               </nav>
 
-              {/* Data section */}
-              <section>
-                <h1 className='text-2xl font-bold'>{instance.name}</h1>
-                <p>
-                  <strong>Host:</strong> {instance.host}
-                </p>
-                <p>
-                  <strong>Plan:</strong> {instance.plan}
-                </p>
-                <p>
-                  <strong>Datacenter:</strong> {instance.datacenter}
-                </p>
-              </section>
+              {/* Toggle between InstanceData and InstanceBrowser */}
+              {activeComponent === 'overview' && (
+                <InstanceOverview
+                  name={instance.name}
+                  host={instance.host}
+                  plan={instance.plan}
+                  datacenter={instance.datacenter}
+                  user={instance.user}
+                  password={instance.password}
+                  url={instance.url}
+                  createdAt={instance.createdAt}
+                  databaseSize={instance.databaseSize}
+                />
+              )}
+
+              {activeComponent === 'browser' && (
+                <InstanceBrowser tables={instance.tables} />
+              )}
             </div>
           </main>
         </div>

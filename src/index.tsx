@@ -5,6 +5,7 @@ import App from './App';
 import './styles/index.css';
 import './styles/components.css';
 import './styles/animations.css';
+import './styles/navbar.css';
 // Context
 import { UserProvider } from './context/UserContext';
 import { InstanceProvider } from './context/InstanceContext';
