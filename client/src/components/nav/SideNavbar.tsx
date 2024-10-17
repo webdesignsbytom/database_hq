@@ -160,7 +160,7 @@ function SideNavbar({ handleComponentChange }: SideNavbarProps) {
                     setIsClosed(false);
                     item.handleComponentChange();
                   }}
-                  className='grid items-center justify-start py-2 px-4 hover:brightness-125'
+                  className='grid items-center justify-center py-2 px-4 hover:brightness-125'
                 >
                   <img
                     title={item.label}

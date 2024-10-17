@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 // Icons
 import { IoMdMenu } from 'react-icons/io';
 // Images
-import LogoWhite from '../../assets/images/logos/tech-design-tavistock-logo-white.svg';
+import LogoWhite from '../../assets/images/logos/database_hg_logo.png';
 // Context
 import { useUser } from '../../context/UserContext';
 // Constants
@@ -18,7 +18,8 @@ import InstancesDropdown from '../../utils/user/InstancesDropdown';
 const Navbar: React.FC = () => {
   const { user } = useUser();
   const [isPhoneNavOpen, setIsPhoneNavOpen] = useState<boolean>(false);
-  const [selectedInstance, setSelectedInstance] = useState<string>('all_instances');
+  const [selectedInstance, setSelectedInstance] =
+    useState<string>('all_instances');
 
   const togglePhoneNav = () => {
     setIsPhoneNavOpen(!isPhoneNavOpen);
