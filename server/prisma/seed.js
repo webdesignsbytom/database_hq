@@ -4,8 +4,8 @@ import dbClient from '../src/utils/dbClient.js';
 // Seed data
 const users = [
   { email: 'tom@gmail.com', id: 'test', role: 'USER' },
-  { email: 'admin@admin.com', role: 'ADMIN', id: 'admin' },
-  { email: 'dev@dev.com', role: 'DEVELOPER', id: 'dev' },
+  { email: 'admin@admin.com', id: 'admin', role: 'ADMIN' },
+  { email: 'dev@dev.com', id: 'dev', role: 'DEVELOPER' },
 ];
 
 const events = [
